@@ -1,5 +1,10 @@
+import config from 'dotenv';
 import express from 'express';
 import bodyParser from 'body-parser';
+
+import itemRoutes from './server/routes/item.routes';
+
+config.config();
 
 const app = express();
 
@@ -7,6 +12,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 const port = process.env.PORT || 8000;
+
+app.use('/api/v1/items', itemRoutes);
 
 // when a random route is inputed
 app.get('*', (req, res) => res.status(200).send({
